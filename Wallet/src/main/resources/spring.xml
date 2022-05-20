@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="PropertyPlaceholderConfigurer">
+		<property name="locations" value="ganesh.properties"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.Wallet" id="walletID">
+		<property name="color" value="${g1}"></property>
+		<property name="brand" value="C_ONE"></property>
+		<property name="material" ref="materialID"></property>
+		<property name="money" ref="moneyID"></property>
+		<property name="atmCard" ref="ATMCardID"></property>
+		<property name="photo" ref="photoID"></property>
+		<property name="price" value="${g2}"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.ATMCard" id="ATMCardID">
+		<property name="cardNo" value="142346589752"></property>
+		<property name="cvv" value="433"></property>
+		<property name="color" value="Green"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.Material" id="materialID">
+		<property name="size" value="2.4"></property>
+		<property name="type" value="Leather"></property>
+		<property name="thickness" value="2.5"></property>
+		<property name="price" value="${g3}"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.Money" id="moneyID">
+		<property name="type" value="Cash"></property>
+		<property name="size" value="2.00"></property>
+		<property name="color" value="pink"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.Photo" id="photoID">
+		<property name="color" value="Black"></property>
+		<property name="size" value="2.2"></property>
+	</bean>
+</beans>
