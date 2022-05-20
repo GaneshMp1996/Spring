@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="PropertyPlaceholderConfigurer">
+		<property name="locations" value="ganesh.properties"></property>
+	</bean>
+
+	<bean class="com.xworkz.cctv.Wallet" id="walletID">
+		<property name="color" value="${g1}"></property>
+		<property name="brand" value="${g2}"></property>
+		<property name="material" ref="${g3}"></property>
+		<property name="price" value="${g4}"></property>
+		<property name="money" ref="${g5}"></property>
+		<property name="atmCard" ref="${g6}"></property>
+		<property name="photo" ref="${g7}"></property>
+
+	</bean>
+
+	<bean class="com.xworkz.cctv.ATMCard" id="ATMCardID">
+		<property name="cardNo" value="${atm1}"></property>
+		<property name="cvv" value="${atm2}"></property>
+		<property name="cardType" value="${atm3}"></property>
+		<property name="color" value="${atm4}"></property>
+		<property name="expriyDate" value="${atm5}"></property>
+	</bean>
+
+	<bean class="com.xworkz.cctv.Material" id="materialID">
+		<property name="size" value="${m1}"></property>
+		<property name="type" value="${m2}"></property>
+		<property name="thickness" value="${m3}"></property>
+		<property name="price" value="${m4}"></property>
+	</bean>
+	<bean class="com.xworkz.cctv.Money" id="moneyID">
+		<property name="type" value="${mo1}"></property>
+		<property name="size" value="${mo2}"></property>
+		<property name="color" value="${mo3}"></property>
+
+	</bean>
+	<bean class="com.xworkz.cctv.Photo" id="photoID">
+		<property name="color" value="${p1}"></property>
+		<property name="size" value="${p2}"></property>
+	</bean>
+
+
+</beans>
