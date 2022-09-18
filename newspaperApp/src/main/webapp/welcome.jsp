@@ -13,6 +13,8 @@
 	<div class="container-fluid p-0 m-0">
 		<%@include file="navbar.jsp"%>
 		<br>
+		<h1 align="center">Welcome to Newspaper Application</h1>
+		<hr>
 		<div class="card shadow bg-white py-5">
 			<img alt="" class="img-fluid mx-auto" style="max-width: 300px"
 				src="image/news.png">
