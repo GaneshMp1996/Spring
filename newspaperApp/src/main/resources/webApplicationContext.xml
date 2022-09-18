@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:component-scan
+		base-package="com.xworkz.newspaperApp">
+	</context:component-scan>
+
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!--Data Source  -->
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<!--Annotated class  -->
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xworkz.newspaperApp.entity.NewsPaperEntity</value>
+			</list>
+		</property>
+		<!-- Hibernate Properties -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		<constructor-arg name="url"
+			value="${driverManagerDataSource.url}"></constructor-arg>
+		<constructor-arg name="username"
+			value="${driverManagerDataSource.username}"></constructor-arg>
+		<constructor-arg name="password"
+			value="${driverManagerDataSource.password}"></constructor-arg>
+		<property name="driverClassName"
+			value="${driverManagerDataSource.driverClassName}"></property>
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="/WEB-INF/classes/database.properties"></property>
+	</bean>
+
+
+</beans>
