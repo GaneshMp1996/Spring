@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Newspaper Details</title>
     <style>
         body {
@@ -44,10 +42,10 @@
     <div class="container">
         <h1>The Required Newspaper Details</h1>
 
-        <div class="detail"><span class="label">Name:</span> ${Name}</div>
-        <div class="detail"><span class="label">Price:</span> ${Price}</div>
-        <div class="detail"><span class="label">Language:</span> ${Language}</div>
-        <div class="detail"><span class="label">No of Pages:</span> ${No_Of_Pages}</div>
+        <div class="detail"><span class="label">Name:</span> <span th:text="${Name}"></span></div>
+        <div class="detail"><span class="label">Price:</span> <span th:text="${Price}"></span></div>
+        <div class="detail"><span class="label">Language:</span> <span th:text="${Language}"></span></div>
+        <div class="detail"><span class="label">No of Pages:</span> <span th:text="${No_Of_Pages}"></span></div>
     </div>
 </body>
 </html>

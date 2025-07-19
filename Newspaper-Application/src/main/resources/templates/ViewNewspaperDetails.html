@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Newspaper Details</title>
     <style>
         body {
@@ -66,20 +64,18 @@
     <div class="container">
         <h1>The Required Newspaper Details</h1>
 
-        <!-- If newspapers are found -->
-        <c:forEach var="newspaper" items="${ListOfNewspaper}">
+        <!-- Loop over list of newspapers -->
+        <div th:each="newspaper : ${ListOfNewspaper}">
             <div class="detail-box">
-                <div class="detail"><span class="label">Name:</span> ${newspaper.newsPaperName}</div>
-                <div class="detail"><span class="label">Price:</span> ${newspaper.price}</div>
-                <div class="detail"><span class="label">Language:</span> ${newspaper.language}</div>
-                <div class="detail"><span class="label">No of Pages:</span> ${newspaper.noOfPages}</div>
+                <div class="detail"><span class="label">Name:</span> <span th:text="${newspaper.newsPaperName}"></span></div>
+                <div class="detail"><span class="label">Price:</span> <span th:text="${newspaper.price}"></span></div>
+                <div class="detail"><span class="label">Language:</span> <span th:text="${newspaper.language}"></span></div>
+                <div class="detail"><span class="label">No of Pages:</span> <span th:text="${newspaper.noOfPages}"></span></div>
             </div>
-        </c:forEach>
+        </div>
 
-        <!-- If not found -->
-        <c:if test="${not empty NotFound}">
-            <div class="error">${NotFound}</div>
-        </c:if>
+        <!-- Error message if list is empty -->
+        <div class="error" th:if="${NotFound != null}" th:text="${NotFound}"></div>
 
         <footer>
             Developer - <strong>Ganesh MP</strong> | Designation - <strong>Java Full Stack Developer</strong>

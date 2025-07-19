@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Delete Newspaper</title>
     <style>
         body {
@@ -59,13 +57,9 @@
     <div class="container">
         <h1>Delete Newspaper Result</h1>
 
-        <c:if test="${not empty validateDeleteMessage}">
-            <div class="message success">${validateDeleteMessage}</div>
-        </c:if>
+        <div th:if="${validateDeleteMessage}" class="message success" th:text="${validateDeleteMessage}"></div>
 
-        <c:if test="${not empty validationMessage}">
-            <div class="message error">${validationMessage}</div>
-        </c:if>
+        <div th:if="${validationMessage}" class="message error" th:text="${validationMessage}"></div>
 
         <footer>
             Developer - <strong>Ganesh MP</strong> | Designation - <strong>Java Full Stack Developer</strong>

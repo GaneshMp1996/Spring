@@ -140,7 +140,7 @@ public class NewspaperController {
 			model.addAttribute("noOfPages", newspaperDto.getNoOfPages());
 			model.addAttribute("Message", "Newspaper details updated successfully");
 			logger.info("Updated newspaper successfully: {}", newspaperDto.getNewsPaperName());
-			return "/WEB-INF/Pages/updateNewspaper.jsp";
+			return "updateNewspaper";
 		} else {
 			model.addAttribute("errorMessage", "Data is not updated");
 			logger.warn("Update failed for: {}", newspaperDto.getNewsPaperName());

@@ -1,15 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Newspaper Details</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     <style>
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background: url('images/background.jpg') no-repeat center center fixed;
+            background: url('/images/background.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
         }
@@ -76,8 +75,8 @@
 <body>
 
     <div class="message">
-        <h2>${NotFound}</h2>
-        <h2>${searchValidationMessage}</h2>
+        <h2 th:text="${NotFound}"></h2>
+        <h2 th:text="${searchValidationMessage}"></h2>
     </div>
 
     <header>
@@ -93,14 +92,12 @@
                 <th>Pages</th>
             </tr>
 
-            <c:forEach items="${ListOfNewspaper}" var="newspaperobj">
-                <tr>
-                    <td>${newspaperobj.newsPaperName}</td>
-                    <td>${newspaperobj.price}</td>
-                    <td>${newspaperobj.language}</td>
-                    <td>${newspaperobj.noOfPages}</td>
-                </tr>
-            </c:forEach>
+            <tr th:each="newspaperobj : ${ListOfNewspaper}">
+                <td th:text="${newspaperobj.newsPaperName}"></td>
+                <td th:text="${newspaperobj.price}"></td>
+                <td th:text="${newspaperobj.language}"></td>
+                <td th:text="${newspaperobj.noOfPages}"></td>
+            </tr>
         </table>
     </div>
 
