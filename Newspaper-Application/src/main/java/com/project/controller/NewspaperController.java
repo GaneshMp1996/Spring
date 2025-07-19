@@ -25,6 +25,7 @@ public class NewspaperController {
 
 	public NewspaperController() {
 		//		System.out.println(this.getClass().getSimpleName() + "object created");
+
 		logger.info("Object is created: " + this.getClass().getName());
 	}
 
