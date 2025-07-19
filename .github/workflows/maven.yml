@@ -2,9 +2,14 @@ name: Java CI for Newspaper-Application module
 
 on:
   push:
+    paths:
+      - 'Newspaper-Application/**'
     branches: [ main ]
   pull_request:
+    paths:
+      - 'Newspaper-Application/**'
     branches: [ main ]
+
 
 jobs:
   build:
