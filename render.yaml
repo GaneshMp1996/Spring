@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bank-app-service
+    runtime: native
+    repo: https://github.com/GaneshMp1996/Spring.git
+    branch: master
+    buildCommand: mvn clean install
+    startCommand: java -jar target/Newspaper-App-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: 17
