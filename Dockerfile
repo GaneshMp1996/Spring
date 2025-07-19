@@ -1,17 +1,17 @@
-# Use official OpenJDK 17 base image
-FROM openjdk:17-jdk-slim
+# Use OpenJDK base image with Maven
+FROM maven:3.9.6-eclipse-temurin-17
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy everything into container
+# Copy everything into the image
 COPY . .
 
-# Build the project using Maven Wrapper
-RUN ./mvnw clean install -DskipTests
+# Build the project
+RUN mvn clean install -DskipTests
 
-# Expose port (not required by Render, but good practice)
+# Expose the port (optional for documentation)
 EXPOSE 8080
 
-# Run the built JAR file (adjust name if needed)
+# Start the app
 CMD ["java", "-jar", "target/Newspaper-App-0.0.1-SNAPSHOT.jar"]
