@@ -11,6 +11,5 @@
 
     <modules>
         <module>Newspaper-Application</module>
-        <!-- Add other modules here if needed -->
     </modules>
 </project>
