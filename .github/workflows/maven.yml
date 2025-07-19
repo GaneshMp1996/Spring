@@ -2,14 +2,15 @@ name: Java CI for Newspaper-Application module
 
 on:
   push:
+    branches: [ master ]   # ← ✅ Make sure this matches your actual branch name
     paths:
       - 'Newspaper-Application/**'
-    branches: [ main ]
+      - '.github/workflows/**'
+      - 'pom.xml'                    # ← include this if you ever change the parent pom
   pull_request:
+    branches: [ master ]
     paths:
       - 'Newspaper-Application/**'
-    branches: [ main ]
-
 
 jobs:
   build:
@@ -26,4 +27,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Build only 'Newspaper-Application' module
-        run: mvn --projects Newspaper-Application --also-make clean install
+        run: mvn --batch-mode --projects Newspaper-Application --also-make clean install
