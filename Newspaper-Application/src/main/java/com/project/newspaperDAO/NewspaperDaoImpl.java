@@ -2,11 +2,13 @@ package com.project.newspaperDAO;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,146 +17,112 @@ import com.project.entity.Newspaper;
 
 @Component
 public class NewspaperDaoImpl implements NewspaperDAO {
-	static final Logger logger = Logger.getLogger(NewspaperDaoImpl.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(NewspaperDaoImpl.class);
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	public NewspaperDaoImpl() {
-		//		System.out.println(this.getClass().getSimpleName()+"Object created");
-		logger.info("Object is created: " + this.getClass().getName());
-
+		logger.info("{} object created", this.getClass().getSimpleName());
 	}
 
 	@Override
 	public boolean saveNewspaperEntity(Newspaper newspaper) {
-		//		System.out.println("Involked save Newspaper Entity..");
-		logger.info("involked save newspaper()");
+		logger.info("Invoked saveNewspaperEntity()");
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			session.save(newspaper);
 			session.getTransaction().commit();
-			//			System.out.println("Newspaper Details has been saved");
-			logger.debug(newspaper + "Newsppaper Details saved sucessfully,,");
+			logger.debug("Newspaper details saved successfully: {}", newspaper);
 			return true;
-
 		} catch (HibernateException e) {
-//			System.out.println(e.getMessage());
-			logger.info(e.getMessage());
-
+			logger.error("Exception in saveNewspaperEntity: {}", e.getMessage());
 		} finally {
 			if (session != null) {
 				session.close();
-				logger.info("session is closed,,,,,,,");
+				logger.info("Session closed");
 			} else {
-				//				System.out.println("Session is not closed");
-				logger.info("session is not closed,,,,,,,,");
+				logger.warn("Session was null, not closed");
 			}
 		}
 		return false;
 	}
 
 	@Override
-	public List<Newspaper> getNewspaperEntity(String NewspaperName) {
-//		System.out.println("Invoked getPaperEntity()");
-		logger.info("involked get newspaper Entity()");
-
+	public List<Newspaper> getNewspaperEntity(String newspaperName) {
+		logger.info("Invoked getNewspaperEntity() with name: {}", newspaperName);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			org.hibernate.query.Query<Newspaper> query = session.getNamedQuery("Newspaper.getNewsPaperObject");
-			query.setParameter("name", NewspaperName);
-			List<Newspaper> newspaperEntity = query.list();
-			//			System.out.println("Found newsPaperName" + newspaperEntity);
-			logger.debug("Newspaper Entity: " + newspaperEntity);
-			if (newspaperEntity != null) {
-				return newspaperEntity;
+			Query<Newspaper> query = session.getNamedQuery("Newspaper.getNewsPaperObject");
+			query.setParameter("name", newspaperName);
+			List<Newspaper> result = query.list();
+			if (result != null && !result.isEmpty()) {
+				logger.debug("Newspaper found: {}", result);
+				return result;
 			} else {
-				//				System.out.println("newsPaperName not found");
-				logger.info("Newspaper name not found,,,,,,,,");
-				return null;
+				logger.warn("No newspaper found with name: {}", newspaperName);
 			}
 		} catch (HibernateException e) {
-			//			System.out.println("inside catch block exception");
-			//			System.out.println(e.getMessage());
-			logger.info(e.getMessage());
+			logger.error("Exception in getNewspaperEntity: {}", e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+				logger.info("Session closed");
+			}
 		}
-		if (session != null) {
-			session.close();
-			logger.info("session is closed");
-		} else {
-			//			System.out.println("Connection is not closed");
-			logger.info("session is not closed");
-		}
-
 		return null;
 	}
 
 	@Override
-	public Newspaper getnewspaperEntity(String Language) {
-//		System.out.println("involked get Newspaper entity");
-		logger.info("involked get Newspaper ENtity()");
+	public Newspaper getnewspaperEntity(String language) {
+		logger.info("Invoked getnewspaperEntity() with language: {}", language);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			Query query = session.createNamedQuery("Newspaper.getLanguageObject");
-			query.setParameter("name", Language);
-			Newspaper newspaperEntity = (Newspaper) query.uniqueResult();
-			if (newspaperEntity != null) {
-				return newspaperEntity;
+			Query<Newspaper> query = session.getNamedQuery("Newspaper.getLanguageObject");
+			query.setParameter("name", language);
+			Newspaper result = query.uniqueResult();
+			if (result != null) {
+				logger.debug("Newspaper found: {}", result);
+				return result;
 			} else {
-//				System.out.println("Newspaper Language is not found");
-				logger.info("Newspaper Language is not found");
-				return null;
+				logger.warn("No newspaper found with language: {}", language);
 			}
 		} catch (HibernateException e) {
-//			System.out.println(e.getMessage());
-			logger.info(e.getMessage());
-
-		}
-		if (session != null) {
-			session.close();
-//			System.out.println("Connection is closed");
-			logger.info("session is closed,,,,,,,");
-		} else {
-//			System.out.println("Coneection is not closed..");
-			logger.info("session is not closed");
+			logger.error("Exception in getnewspaperEntity: {}", e.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+				logger.info("Session closed");
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public List<Newspaper> getAllNesapeperEntity() {
-//		System.out.println("Involked get all newspaper Entity..");
-		logger.info("involked get all newspaper entity()");
+		logger.info("Invoked getAllNesapeperEntity()");
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			Query<Newspaper> query = session.getNamedQuery("Newspaper.getAllEntity");
 			List<Newspaper> list = query.list();
 			if (list != null && !list.isEmpty()) {
-				logger.debug(list);
-				//				System.out.println(list);
+				logger.debug("Newspaper list: {}", list);
 				return list;
 			} else {
-//				System.out.println("Table is empty,,,add some data..");
-				logger.info("list is empty,,,,,add some data");
+				logger.warn("No newspapers found in database");
 			}
-
 		} catch (HibernateException e) {
-//			System.out.println(e.getMessage());
-			logger.info(e.getMessage());
-
+			logger.error("Exception in getAllNesapeperEntity: {}", e.getMessage());
 		} finally {
 			if (session != null) {
-				
-//				System.out.println("session is closed");
-				logger.info("session is closed,,,,");
 				session.close();
-			} else {
-//				System.out.println("Session is not closed");
-				logger.info("session is not closed,,,,");
+				logger.info("Session closed");
 			}
 		}
 		return null;
@@ -162,46 +130,47 @@ public class NewspaperDaoImpl implements NewspaperDAO {
 
 	@Override
 	public boolean deleteNewspaperEntity(String newsPaperName) {
-//		System.out.println("Involked delete newspaper entity method...");
-		logger.info("involked delete newspaper entity ()");
+		logger.info("Invoked deleteNewspaperEntity() with name: {}", newsPaperName);
 		Session session = null;
+		Transaction tx = null;
 		try {
 			session = sessionFactory.openSession();
-			Query query = session.getNamedQuery("deleteNewspaperEntity");
+			Query<Newspaper> query = session.getNamedQuery("deleteNewspaperEntity");
 			query.setParameter("name", newsPaperName);
-			Newspaper object = (Newspaper) query.uniqueResult();
-//			System.out.println("Delete is sucessfull: " + object);
-			logger.debug("delete is sucessfull: "+object);
-			session.beginTransaction();
-			session.delete(object);
-			session.getTransaction().commit();
-			return true;
+			List<Newspaper> entities = query.list();  // <-- changed here
 
+			if (!entities.isEmpty()) {
+				tx = session.beginTransaction();
+				for (Newspaper entity : entities) {
+					session.delete(entity);
+					logger.debug("Deleted newspaper: {}", entity);
+				}
+				tx.commit();
+				return true;
+			} else {
+				logger.warn("No newspaper found to delete with name: {}", newsPaperName);
+			}
 		} catch (HibernateException e) {
-			session.getTransaction().rollback();
-
+			logger.error("Exception in deleteNewspaperEntity: {}", e.getMessage());
+			if (tx != null) tx.rollback();
 		} finally {
 			if (session != null) {
-//				System.out.println("session is closed");
-				logger.info("session is closed");
-			} else {
-//				System.out.println("session is not closed");
-				logger.info("session is not closed,,,,");
+				session.close();
+				logger.info("Session closed");
 			}
 		}
 		return false;
 	}
 
+
 	@Override
 	public boolean updateNewspaperEntity(NewspaperDTO newspaperdto) {
-//		System.out.println("involked update newspaper details ()");
-		logger.info("involked update newspaper details()");
-
+		logger.info("Invoked updateNewspaperEntity() with DTO: {}", newspaperdto);
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			Query query = session.getNamedQuery("updateNewspaperEntity");
+			Query<?> query = session.getNamedQuery("updateNewspaperEntity");
 			query.setParameter("Name", newspaperdto.getNewsPaperName());
 			query.setParameter("Price", newspaperdto.getPrice());
 			query.setParameter("Language", newspaperdto.getLanguage());
@@ -209,24 +178,16 @@ public class NewspaperDaoImpl implements NewspaperDAO {
 
 			int updated = query.executeUpdate();
 			session.getTransaction().commit();
-//			System.out.println("Data updated: " + updated);
-			logger.debug("data is updated: "+updated);
+			logger.debug("Update successful, rows affected: {}", updated);
 			return true;
 		} catch (HibernateException e) {
-//			System.out.println(e.getMessage());
-			logger.info(e.getMessage());
+			logger.error("Exception in updateNewspaperEntity: {}", e.getMessage());
 		} finally {
 			if (session != null) {
-//				System.out.println("session is closed....");
-				logger.info("session is closed");
 				session.close();
-			} else {
-//				System.out.println("session is not closed,,,,,,,,");
-				logger.info("session is not closed,,,,,,,,,");
+				logger.info("Session closed");
 			}
-
 		}
 		return false;
 	}
-
 }

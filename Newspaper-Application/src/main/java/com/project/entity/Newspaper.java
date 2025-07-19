@@ -1,12 +1,6 @@
 package com.project.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,28 +10,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Getter
-@ToString
-
 @Entity
 @Table(name = "newspaperdetails")
 @NamedQuery(name = "Newspaper.getNewsPaperObject", query = "from Newspaper where newsPaperName=:name")
 @NamedQuery(name = "Newspaper.getLanguageObject", query = "from Newspaper where language=:name")
 @NamedQuery(name = "Newspaper.getAllEntity", query = "from Newspaper")
 @NamedQuery(name = "deleteNewspaperEntity", query = "from Newspaper where newsPaperName=:name")
-@NamedQuery(name = "updateNewspaperEntity", query = "update Newspaper set price=:Price,language=:Language,noOfPages=:NoOfPages where newsPaperName=:Name")
-
+@NamedQuery(name = "updateNewspaperEntity", query = "update Newspaper set price=:Price, language=:Language, noOfPages=:NoOfPages where newsPaperName=:Name")
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
 public class Newspaper implements java.io.Serializable {
+
 	@Id
-	@GeneratedValue(generator = "abc")
-	@GenericGenerator(name = "abc", strategy = "increment")
-	@Column(name = "ID")
-	private int id;
-	//	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "NAME")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "NEWSPAPER_ID")  // CHAR(4), primary key
+	private String id;
+
+	@Column(name = "NEWSPAPER_NAME")
 	private String newsPaperName;
 
 	@Column(name = "PRICE")
@@ -46,7 +38,6 @@ public class Newspaper implements java.io.Serializable {
 	@Column(name = "LANGUAGE")
 	private String language;
 
-	@Column(name = "NOOFPAGES")
+	@Column(name = "NO_OF_PAGES")
 	private int noOfPages;
-
 }

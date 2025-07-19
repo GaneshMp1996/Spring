@@ -1,7 +1,0 @@
-com\project\dto\NewspaperDTO.class
-com\project\newspaperDAO\NewspaperDaoImpl.class
-com\project\controller\NewspaperController.class
-com\project\newspaperservice\NewspaperService.class
-com\project\newspaperservice\NewspaperServiceImpl.class
-com\project\entity\Newspaper.class
-com\project\newspaperDAO\NewspaperDAO.class

@@ -1,0 +1,112 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Newspaper Details</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        header {
+            background-color: rgba(0, 0, 60, 0.8);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #ffeb3b;
+        }
+
+        .message {
+            text-align: center;
+            color: orange;
+            font-size: 1.2em;
+            margin: 20px;
+        }
+
+        .table-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            margin: 30px auto;
+            padding: 20px;
+            width: 80%;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: teal;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(50, 0, 0, 0.8);
+            margin-top: 50px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">
+        <h2>${NotFound}</h2>
+        <h2>${searchValidationMessage}</h2>
+    </div>
+
+    <header>
+        <h1>The Newspaper Details</h1>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Language</th>
+                <th>Pages</th>
+            </tr>
+
+            <c:forEach items="${ListOfNewspaper}" var="newspaperobj">
+                <tr>
+                    <td>${newspaperobj.newsPaperName}</td>
+                    <td>${newspaperobj.price}</td>
+                    <td>${newspaperobj.language}</td>
+                    <td>${newspaperobj.noOfPages}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Newspaper Application</p>
+    </footer>
+
+</body>
+</html>
