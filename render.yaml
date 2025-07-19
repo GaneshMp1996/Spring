@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: bank-app-service
+    name: newspaper-app-service
     repo: https://github.com/GaneshMp1996/Spring.git
     branch: master
     buildCommand: mvn clean install
