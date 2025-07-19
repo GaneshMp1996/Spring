@@ -27,7 +27,7 @@ public class NewspaperController {
 
 	@RequestMapping
 	public String showHomePage() {
-		return "index";
+		return "home";
 	}
 
 	@RequestMapping(value = "/news", method = RequestMethod.POST)

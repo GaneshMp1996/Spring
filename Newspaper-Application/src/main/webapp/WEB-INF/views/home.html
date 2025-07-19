@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Newspaper Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            color: #333;
+            padding: 0;
+        }
+
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+
+        .container {
+            display: flex;
+            min-height: 90vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #00695c;
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin: 18px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar li:hover {
+            background-color: #004d40;
+        }
+
+        .content {
+            flex: 1;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        .form-box {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+
+        .form-box.active {
+            display: block;
+        }
+
+        .form-box h2 {
+            color: #00796b;
+            margin-bottom: 25px;
+        }
+
+        .form-box input[type="text"],
+        .form-box input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-box input[type="submit"] {
+            background-color: #00796b;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-box input[type="submit"]:hover {
+            background-color: #004d40;
+        }
+
+        footer {
+            background-color: #004d40;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 0.9rem;
+        }
+
+        .form-box p {
+            margin-top: -10px;
+        }
+
+        a {
+            color: #00796b;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📰 Newspaper Management</h1>
+    <p>Developed by Ganesh MP | Java Full Stack Developer</p>
+</header>
+
+<div class="container">
+    <div class="sidebar">
+        <ul>
+            <li onclick="showForm('add')">➕ Add Newspaper</li>
+            <li onclick="showForm('searchName')">🔍 Search by Name</li>
+            <li onclick="showForm('searchLang')">🗣️ Search by Language</li>
+            <li onclick="showForm('viewAll')">📄 View All</li>
+            <li onclick="showForm('delete')">🗑️ Delete Newspaper</li>
+            <li onclick="showForm('update')">✏️ Update Newspaper</li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <!-- Add Newspaper -->
+        <div id="add" class="form-box active">
+            <form th:action="@{/news}" method="post" th:object="${newspaper}">
+                <h2>Add Newspaper</h2>
+                <input type="text" th:field="*{newsPaperName}" placeholder="Name" />
+                <input type="text" th:field="*{price}" placeholder="Price" />
+                <input type="text" th:field="*{language}" placeholder="Language" />
+                <input type="text" th:field="*{noOfPages}" placeholder="No Of Pages" />
+                <input type="submit" value="Save" />
+                <p style="color: green;" th:text="${validataionMessage}"></p>
+            </form>
+        </div>
+
+        <!-- Search by Name -->
+        <div id="searchName" class="form-box">
+            <form th:action="@{/searchNewsPaper.abc}" method="get">
+                <h2>Search by Name</h2>
+                <input type="text" name="searchNewsPaper" placeholder="Enter Newspaper Name" />
+                <input type="submit" value="Search" />
+                <p style="color: orange;" th:text="${NotFound}"></p>
+            </form>
+        </div>
+
+        <!-- Search by Language -->
+        <div id="searchLang" class="form-box">
+            <form th:action="@{/searchLanguage.abc}" method="get">
+                <h2>Search by Language</h2>
+                <input type="text" name="searchLanguage" placeholder="Enter Language" />
+                <input type="submit" value="Search" />
+                <p style="color: orange;" th:text="${SearchValidation}"></p>
+            </form>
+        </div>
+
+        <!-- View All -->
+        <div id="viewAll" class="form-box">
+            <form>
+                <h2>All Newspapers</h2>
+                <a th:href="@{/getAllNewsPaper.abc}">Click here to view all records</a>
+            </form>
+        </div>
+
+        <!-- Delete Newspaper -->
+        <div id="delete" class="form-box">
+            <form th:action="@{/deleteNewspaper.abc}" method="post">
+                <h2>Delete Newspaper</h2>
+                <input type="text" name="newsPaperName" placeholder="Enter Name" />
+                <input type="submit" value="Delete" />
+            </form>
+        </div>
+
+        <!-- Update Newspaper -->
+        <div id="update" class="form-box">
+            <form th:action="@{/updateNewspaper.abc}" method="post">
+                <h2>Update Newspaper</h2>
+                <input type="text" name="newsPaperName" placeholder="Name" />
+                <input type="text" name="price" placeholder="Price" />
+                <input type="text" name="language" placeholder="Language" />
+                <input type="text" name="noOfPages" placeholder="No Of Pages" />
+                <input type="submit" value="Update" />
+                <p style="color: red;" th:text="${errorMessage}"></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Newspaper App | Ganesh MP</p>
+</footer>
+
+<script>
+    function showForm(id) {
+        document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
