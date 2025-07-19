@@ -26,7 +26,8 @@ public class NewspaperController {
 	}
 
 	@RequestMapping
-	public String showHomePage() {
+	public String showHomePage(Model model) {
+		model.addAttribute("newspaper", new NewspaperDTO());
 		return "home";
 	}
 
