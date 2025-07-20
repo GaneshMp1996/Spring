@@ -27,7 +27,7 @@ public class Newspaper implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NEWSPAPER_ID")  // CHAR(4), primary key
-	private String id;
+	private int id;
 
 	@Column(name = "NEWSPAPER_NAME")
 	private String newsPaperName;
