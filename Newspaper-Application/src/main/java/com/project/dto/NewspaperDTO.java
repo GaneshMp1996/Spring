@@ -16,7 +16,7 @@ import lombok.ToString;
 
 
 public class NewspaperDTO {
-	private int newsPaperName;
+	private String newsPaperName;
 	private double price;
 	private String language;
 	private int noOfPages;

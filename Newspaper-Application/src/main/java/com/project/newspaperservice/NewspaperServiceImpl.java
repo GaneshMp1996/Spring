@@ -41,7 +41,7 @@ public class NewspaperServiceImpl implements NewspaperService {
 		logger.info("Invoked validateNewspaperDTO()");
 		boolean flag;
 
-		if (newspaperDto.getNewsPaperName() != 0) {
+		if (newspaperDto.getNewsPaperName() != null && !newspaperDto.getNewsPaperName().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
