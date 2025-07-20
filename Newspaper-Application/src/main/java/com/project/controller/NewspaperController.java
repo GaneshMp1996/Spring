@@ -47,14 +47,17 @@ public class NewspaperController {
 				return "NewspaperDetails";
 			} else {
 				model.addAttribute("ValidateMessage", "Failed to save data. Try again.");
+				model.addAttribute("newspaper", newspaperDTO); // 💡 ADD THIS
 				logger.warn("Failed to save newspaper data");
 			}
 		} else {
 			model.addAttribute("ValidateMessage", "Invalid data. Please check and try again.");
+			model.addAttribute("newspaper", newspaperDTO); // 💡 ADD THIS
 			logger.warn("Invalid newspaper data received");
 		}
-		return "index";
+		return "home";
 	}
+
 
 	@RequestMapping("/searchNewsPaper.abc")
 	public String getNewspaperName(@RequestParam String searchNewsPaper, Model model) {
